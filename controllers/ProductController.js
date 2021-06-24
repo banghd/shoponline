@@ -1,7 +1,7 @@
 const Product = require('../models/Product.js')
 const Products = require('../models/Product.js')
 const ProductController = {
-    index: async (req,res,next) => {
+    index: async (req,res ) => {
         try {
             let data = await Products.find((err)=>{
                 if(err) res.json(err)
@@ -16,7 +16,7 @@ const ProductController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    create: async (req,res,next) => {
+    create: async (req,res ) => {
         try {
             let { id, name, price, category, description, quantities } = req.body
             let newProduct = new Products({ id, name, price, category, description, quantities })
@@ -30,7 +30,7 @@ const ProductController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    find: async (req,res,next) => {
+    find: async (req,res ) => {
         try {
             let data = req.query
             let result = await Products.find(data, (err)=>{
@@ -45,7 +45,7 @@ const ProductController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    delete : async (req,res,next) =>{
+    delete : async (req,res ) =>{
         try {
             let data = req.body._id
             await Products.deleteOne({_id : data}, (err)=>{
@@ -58,7 +58,7 @@ const ProductController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    update : async (req,res, next)=>{
+    update : async (req,res)=>{
         try {
             let {_id , name, price,description, quantities, category} = req.body
             await Products.updateOne({_id}, {$set:  {name,price,quantities, category, description} }, (err)=>{

@@ -2,10 +2,10 @@ const Users = require('../models/User.js')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const UserController = {
-    index: (req,res,next) => {
+    index: (req,res) => {
         res.send('home')
     },
-    login: async (req,res,next) => {
+    login: async (req,res) => {
         try {
             let { email, password } = req.body
             let user = await Users.findOne({ email })
@@ -31,7 +31,7 @@ const UserController = {
             return res.status(500).json({ msg: error.message })
         }
     },
-    register: async (req,res,next) => {
+    register: async (req,res) => {
 
         try {
             let { name, email, password } = req.body
@@ -52,14 +52,14 @@ const UserController = {
              return res.status(500).json({ msg: error.message })
         }
     },
-    logout: async (req,res,next) => {
+    logout: async (req,res) => {
         try {
             res.clearCookie('refreshToken', { path: '/user/refreshToken' })
             return res.json({ msg: "Logged out" })
         } catch (error) {  return res.status(500).json({ msg: error.message }) }
     },
 
-    refreshToken : async (req,res,next) =>{
+    refreshToken : async (req,res) =>{
         try {
             const rf_Token = req.cookie.refreshToken
             if(!rf_Token) return res.status(400).json({ msg: "Please Login or Register" }) // Chua co token

@@ -1,14 +1,13 @@
 const router = require('express').Router()
 const UserController = require('../controllers/UserController')
-router.get('/', UserController.index)
+router.get('/', UserController.index) //Test Route
 
-router.post('/register' , UserController.register)
+router.post('/register' , UserController.register)  //Dang ki
 
-router.post('/login', UserController.login)
+router.post('/login', UserController.login)  //Dang nhap
 
-router.delete('/logout', UserController.logout)
+router.get('/logout', UserController.logout)  //Dang xuat
 
-router.patch('/update')
 
 
 module.exports = router
