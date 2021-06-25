@@ -77,9 +77,9 @@ const UserController = {
         }
     },
     addCart : async (req,res) =>{
-        let user = await Products.findById(req.user.id)
+        let user = await Users.findById(req.body._id)
         if(!user) return res.status(400).json({msg : "User doesn't exist"})
-        await Users.findOneAndUpdate({_id : req.user.id}, {
+        await Users.findOneAndUpdate({_id : req.body._id}, {
             cart : req.body.cart
         })
         return res.json({msg : "Added to cart"})
