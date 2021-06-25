@@ -5,12 +5,12 @@ const ProductController = {
         try {
             let data = await Products.find((err)=>{
                 if(err) res.json(err)
-                res.json({
-                    status: "success",
-                    product: data
-                })
+                
             })
-           
+            res.json({
+                status: "success",
+                product: data
+            })
         }
         catch (error) {
             return res.status(500).json({ msg: error.message })

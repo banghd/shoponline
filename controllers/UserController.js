@@ -1,6 +1,8 @@
 const Users = require('../models/User.js')
+const Products = require('../models/Product')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const Product = require('../models/Product')
 const UserController = {
     index: (req,res) => {
         res.send('home')
@@ -41,7 +43,8 @@ const UserController = {
 
             if (password.length < 6) res.status(400).json({ msg: "Password Invalid" })
             //Hash password
-            let passWordHashed = bcrypt.hash(password, 10)
+            let passWordHashed = await bcrypt.hash(password, 10)
+
             let newUser = new Users({ name, email, password : passWordHashed})
 
             await newUser.save()
@@ -72,8 +75,16 @@ const UserController = {
         } catch (error) {
             return res.status(500).json({ msg: error.message })
         }
+    },
+    addCart : async (req,res) =>{
+        let user = await Products.findById(req.user.id)
+        if(!user) return res.status(400).json({msg : "User doesn't exist"})
+        await Users.findOneAndUpdate({_id : req.user.id}, {
+            cart : req.body.cart
+        })
+        return res.json({msg : "Added to cart"})
     }
-    
+        
 }
 
 const createAccessToken = (user) => {
