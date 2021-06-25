@@ -4,7 +4,7 @@ const auth = (req,res,next)=>{
     try {
         const token = req.header("Authorization")
         if(!token) return res.status(400).json("Invalid Authentication")
-        jwt.verify(token , "Access Secret Token", (err, )=>{
+        jwt.verify(token , process.env.ACCESS_SECRET_TOKEN, (err, )=>{
             if(err) return res.status(400).json("Invalid Authentication")
             next()
         })

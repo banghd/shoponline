@@ -93,9 +93,9 @@ const UserController = {
 }
 
 const createAccessToken = (user) => {
-    return jwt.sign(user, "Access Secret Token", { expiresIn: '11m' })
+    return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: '11m' })
 }
 const createRefreshToken = (user) => {
-    return jwt.sign(user, "Refresh Token", { expiresIn: "7d" })
+    return jwt.sign(user,process.env.REFRESH_SECRET_TOKEN, { expiresIn: "7d" })
 }
 module.exports = UserController

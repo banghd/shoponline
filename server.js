@@ -3,13 +3,14 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require("cors")   
 const cookieParser = require('cookie-parser')
+require('dotenv').config()
 //config
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(cookieParser())
 //connect to database
-mongoose.connect('mongodb://127.0.0.1:27017/demo', {
+mongoose.connect(process.env.Mongodb_URL, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
